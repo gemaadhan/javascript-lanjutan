@@ -18,7 +18,7 @@ let mahasiswa2 = {
 
 // 2. Function Declaration
 function mahasiswa(nama, energi) {
-  let mahasiswa = [];
+  let mahasiswa = {};
   mahasiswa.nama = nama;
   mahasiswa.energi = energi;
 
