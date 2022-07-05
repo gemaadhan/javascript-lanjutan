@@ -1,13 +1,5 @@
-let add = (function () {
-  let counter = 0;
-  return function () {
-    return ++counter;
-  };
-})();
+const tampilNama = (nama, waktu) => {
+  return `Selamat ${waktu}, ${nama}`;
+};
 
-counter = 10;
-
-console.log(add());
-console.log(add());
-console.log(add());
-console.log(add());
+console.log(tampilNama(`Gema`, `Siang`));
