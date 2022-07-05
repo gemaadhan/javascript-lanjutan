@@ -375,3 +375,132 @@ maka akan menghasilkan
 >Erik
 
 ## Closure
+>Closure merupakan kombinasi antara function dan lingkungan leksikal (lexical scope) di dalam function tersebut. -mdn
+
+>Closure adalah sebuah function ketika memiliki akses ke parent scope nya, meskipun parent scopenya sudah selesai dieksekusi. -w3school-
+
+>Closue adalah sebuyah function yang dikembalikan oleh function yang lain, yang memiliki akses ke lingkungan saat ia diciptakan. -code Fellow-
+
+### Lecical Scoping
+```js
+function mulai() {
+  let nama = `Gema`; 
+  let jenis_kelamin = "laki";
+  function tampilNama() {
+    console.log(nama);
+  }
+  console.dir(tampilNama);
+}
+
+mulai();
+```
+ketika variable nama di console log, javascript akan mencari nama di dalam fungsi tampilNama, kalau tidak ada, javascript akan mencari ke fungsi init kalau tidak ada lagi dia akan mencari ke global scope nya, proses ini dinamakan lexical scoping.  
+
+output console.dir(tampilnama) akan berisi closure scope nama dari fungsi tampilnama; sedangkan jenis_kelamin tidak masuk ke dalam closure scope karena tidak dibutuhkan oleh fungsi tampilnama. 
+
+<!-- ### Closure -->
+### Fungsi Jalan Separo
+
+```js
+function mulai() {
+  let nama = `Gema`;
+  function tampilNama() {
+    console.log(nama);
+  }
+  return tampilNama; // return function tanpa menjalankannya, fungsi baru jalan sebagian
+}
+let panggilNama = mulai();
+panggilNama();
+```
+
+Cara penulisan aneh di atas memungkinkan kita melakukan function factory.
+
+
+### Function Factory
+```js
+function mulai() {
+  function tampilNama(nama) {
+    console.log(nama);
+  }
+  return tampilNama;
+}
+
+let panggilNama = mulai();
+panggilNama("Gema");
+```
+
+atau bisa disingkat dengan anonymous function
+
+```js
+function mulai() {
+  return function (nama) {
+    console.log(nama);
+  };
+}
+
+let panggilNama = mulai();
+panggilNama("Gema");
+```
+
+### Kenapa Menggunakan Closure ?
+1. Untuk membuat function Factory
+```js
+function ucapkanSalam(waktu) {
+  return function (nama) {
+    console.log(`Halo ${nama}, selamat ${waktu}, semoga harimuy menyenangkan`);
+  };
+}
+
+let selamatPagi = ucapkanSalam("Pagi");
+let selamatSiang = ucapkanSalam("Siang");
+let selamatMalam = ucapkanSalam("Malam");
+
+selamatMalam("Gema");
+console.dir(selamatMalam); //jika di cek maka, variabel waktu akan masuk closure scope dari anonymous function Selamat Malam
+```
+2. Untuk membuat private variabel (private method juga bisa)
+```js
+let add = function () {
+  let counter = 0; // variabel counter yang ini menjadi private sehingga tidak terpengaruh variabel counter yang ada di global. tetapi tetep bisa diakses oleh inner function karena masuk ke dalam closure scope
+  return function () {
+    return ++counter;
+  };
+};
+
+counter = 10;
+
+let a = add();
+
+console.log(a());
+console.log(a());
+console.log(a());
+
+// 1
+// 2
+// 3
+```
+
+bagaimana agar tetap bisa mengakses inner function tetapi fungsi add tidak perlu kita masukkan ke dalam variabel a dulu ?
+
+caranya adalah dengan membungkus outer function dengan tanda kurung kemudian menjalankannya (), ini disebut dengan IIFE (Immediately Invoked Function Expression)
+```js
+let add = (function () {
+  let counter = 0;
+  return function () {
+    return ++counter;
+  };
+})();
+
+counter = 10;
+
+console.log(add());
+console.log(add());
+console.log(add());
+
+// 1
+// 2
+// 3
+```
+
+### VAR LET CONST
+Selalu gunakan let dan const untuk merubah periilaku javascrip yang function scope menjadi block scope, gunakan const jika isi variabel tidak akan pernah berubah. Selalu gunakan const kecuali untuk for atau perulangan, untuk meminimalisir perubahan state pada variabel.
