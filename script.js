@@ -1,5 +1,9 @@
-const tampilNama = (nama, waktu) => {
-  return `Selamat ${waktu}, ${nama}`;
-};
+let mahasiswa = ["Gema Nadia R", "Fadil Sauzu", "Memphis Depay"];
 
-console.log(tampilNama(`Gema`, `Siang`));
+let jumlahhuruf = mahasiswa.map(nama => ({ nama: nama, julHuruf: nama.length}))
+// penulisan object nama bisa ditulis sekali saja karena property nya sama dengan nilainya
+// nama => ({ nama, julHuruf: nama.length})
+
+console.log(jumlahhuruf); //mengembalikan object
+
+console.table(jumlahhuruf); //menampilkan dalam bentuk table

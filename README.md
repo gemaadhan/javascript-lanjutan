@@ -504,3 +504,95 @@ console.log(add());
 
 ### VAR LET CONST
 Selalu gunakan let dan const untuk merubah periilaku javascrip yang function scope menjadi block scope, gunakan const jika isi variabel tidak akan pernah berubah. Selalu gunakan const kecuali untuk for atau perulangan, untuk meminimalisir perubahan state pada variabel.
+
+## Arrow Function
+ada beberapa cara penulisan function
+### Function Declaration
+```js
+function tampilPesan(nama){
+  alert(`halo` + nama);
+}
+
+tampilPesan(`Gema`);
+```
+
+### Function Expression
+```js
+let tampilPesan = function (nama) {
+  alert(`halo` + nama)
+}
+tampilPesan(`Gema`);
+```
+
+### Arrow Function
+```js
+let tampilPesan = (nama) => {
+  alert(`halo` + nama);
+}
+tampilPesan(`Gema`);
+```
+
+#### Contoh Penulisan Arrow Function
+```js
+const tampilNama = (nama) => {
+  return `Halo, ${nama}`
+}
+console.log(tampilNama('Gema'));
+```
+
+#### Contoh Penulisan Arrow Function dengan 2 Parameter
+
+```js
+const tampilNama = (nama,waktu) => {
+  return `Selamat ${waktu}, ${nama}`
+}
+
+console.log(tampilNama(`gema`, `siang`));
+```
+
+#### Contoh Penulisan Arrow Function dengan 1 Parameter dan isinya hanya return
+kita bisa menuliskannya tanpa () dan tanpa {} dan tanpa keyword return atau disebut implisit return
+```js
+const tampilNama = nama => `Halo ${nama}`
+console.log(tampilNama("Nadia"));
+```
+
+#### Contoh Penulisan Arrow Function Tanpa Parameter
+kita wajib menuliskan ()
+```js
+const tampilNama = () => `Hallow Bro`;
+console.log(tampilNama());
+```
+
+#### Contoh Penulisan Arrow Function pada fungsi Map.
+
+##### Penulisan Map yang umum
+```js
+let mahasiswa = ["Gema Nadia R", "Fadil Sauzu", "Memphis Depay"];
+
+let jumlahhuruf = mahasiswa.map(function(nama){
+  return nama.length
+})
+
+console.log(jumlahhuruf);
+```
+
+##### Penulisan Map dengan Arrow Function
+```js
+let jumlahhuruf = mahasiswa.map(nama => nama.length)
+
+console.log(jumlahhuruf);
+```
+
+##### Mengembalikan Map dalam Bentuk Object bukan Array
+````js
+let jumlahhuruf = mahasiswa.map(nama => ({ nama: nama, julHuruf: nama.length}))
+// penulisan object nama bisa ditulis sekali saja karena property nya sama dengan nilainya
+// nama => ({ nama, julHuruf: nama.length})
+
+console.log(jumlahhuruf); //mengembalikan object
+
+console.table(jumlahhuruf); //menampilkan dalam bentuk table
+````
+
+### Konsep This pada Arrow Function
